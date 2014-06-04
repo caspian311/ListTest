@@ -29,9 +29,8 @@ public class ListViewLoader extends Activity {
 	    for (int i = 0; i < values.length; ++i) {
 	      list.add(values[i]);
 	    }
-	    final StableArrayAdapter adapter = new StableArrayAdapter(this,
-	        android.R.layout.simple_list_item_1, list);
-	    listview.setAdapter(adapter);
+	    final MySimpleArrayAdapter adapter2 = new MySimpleArrayAdapter(this, list);
+	    listview.setAdapter(adapter2);
 
 	    listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -44,7 +43,7 @@ public class ListViewLoader extends Activity {
 	              @Override
 	              public void run() {
 	                list.remove(item);
-	                adapter.notifyDataSetChanged();
+	                adapter2.notifyDataSetChanged();
 	                view.setAlpha(1);
 	              }
 	            });
