@@ -11,31 +11,35 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MySimpleArrayAdapter extends ArrayAdapter<String> {
-	  private final Context context;
-	  private final ArrayList<String> values;
+	private final Context context;
+	private final ArrayList<String> values;
 
-	  public MySimpleArrayAdapter(Context context, ArrayList<String> values) {
-	    super(context, R.layout.rowlayout, values);
-	    this.context = context;
-	    this.values = values;
-	  }
+	public MySimpleArrayAdapter(Context context, ArrayList<String> values) {
+		super(context, R.layout.rowlayout, values);
+		this.context = context;
+		this.values = values;
+	}
 
-	  @Override
-	  public View getView(int position, View convertView, ViewGroup parent) {
-	    LayoutInflater inflater = (LayoutInflater) context
-	        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	    View rowView = inflater.inflate(R.layout.rowlayout, parent, false);
-	    TextView textView = (TextView) rowView.findViewById(R.id.label);
-	    ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
-	    textView.setText(values.get(position));
-	    // change the icon for Windows and iPhone
-	    String s = values.get(position);
-	    if (s.startsWith("iPhone")) {
-	      imageView.setImageResource(android.R.drawable.btn_minus);
-	    } else {
-	      imageView.setImageResource(android.R.drawable.btn_plus);
-	    }
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		LayoutInflater inflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		
+		View rowView = inflater.inflate(R.layout.rowlayout, parent, false);
+		TextView textView = (TextView) rowView.findViewById(R.id.label);
+		ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
 
-	    return rowView;
-	  }
-	} 
+		textView.setText(values.get(position));
+		imageView.setImageResource(getImageResource(values.get(position)));
+
+		return rowView;
+	}
+
+	public int getImageResource(String s) {
+		if (s.startsWith("iPhone")) {
+			return R.drawable.foo;
+		} else {
+			return android.R.drawable.button_onoff_indicator_on;
+		}
+	}
+}
